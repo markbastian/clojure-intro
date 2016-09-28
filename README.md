@@ -113,6 +113,8 @@ Think of a problem you are interested in. If you can't think of one, try the fol
 
 ```
 
+[functions](functions.md)
+
 ## Additional Resources
  * [Clojure Evaluation](http://clojure.org/reference/evaluation): 
  This is an excellent read on the basic types and literal collections of Clojure.
