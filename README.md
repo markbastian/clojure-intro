@@ -1,3 +1,5 @@
+Note: Check out [klipse](https://github.com/viebel/klipse)
+
 # Tutorial 1: Clojure is a Data Centric Language
 There are a lot of ways to look at the Clojure language. Some of the points often made
 about it are that it is:
