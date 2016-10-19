@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.vijaykiran/docjure:1.7.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vijaykiran/docjure/1.7.0/docjure-1.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

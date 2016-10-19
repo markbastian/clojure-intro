@@ -53,7 +53,7 @@ about it are that it is:</p>
 <li>Data Oriented</li>
 </ul>
 
-<p>In this series, I am going to take the data-oriented/data-first approach to Clojure. 
+<p>In this series, I am going to take the data-oriented/data-first approach to Clojure.
 I think this is a less common approach, but has some major selling points:</p>
 
 <ul>
@@ -70,7 +70,7 @@ looking at Clojure as data. Let's jump in...</p>
 
 <p>Clojure's basic collections have a <em>literal syntax</em>. In other words, Clojure is written
 exactly as it is evaluated. In most languages, primitives are evaluated literally.
-For example, 5 is interpreted by the compiler as the number 5 and "ABC" is interpreted 
+For example, 5 is interpreted by the compiler as the number 5 and "ABC" is interpreted
 as the string "ABC". Generally, once you go beyond primitives this is no longer the case.</p>
 
 <h3>
@@ -102,8 +102,9 @@ converted to sequences of strings of length 1.</li>
 <h5>
 <a id="vector" class="anchor" href="#vector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vector</h5>
 
-<div class="highlight highlight-source-clojure"><pre>[] <span class="pl-c">;An empty vector</span>
-[<span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span> <span class="pl-c1">4</span> <span class="pl-c1">5</span> <span class="pl-c1">6</span>]</pre></div>
+<pre><code class="language-klipse">[] ;An empty vector
+[1 2 3 4 5 6]
+</code></pre>
 
 <p>A Clojure vector is an array-like object with the following properties:</p>
 
@@ -115,8 +116,9 @@ converted to sequences of strings of length 1.</li>
 <h5>
 <a id="map" class="anchor" href="#map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Map</h5>
 
-<div class="highlight highlight-source-clojure"><pre>{}
-{ <span class="pl-c1">:name</span> <span class="pl-s"><span class="pl-pds">"</span>Mark<span class="pl-pds">"</span></span> <span class="pl-c1">:year</span> <span class="pl-c1">2016</span> }</pre></div>
+<pre><code class="language-klipse">{}
+{ :name "Mark" :year 2016 }
+</code></pre>
 
 <p>A Clojure map is a hash map with the following properties:</p>
 
@@ -127,8 +129,9 @@ converted to sequences of strings of length 1.</li>
 <h5>
 <a id="set" class="anchor" href="#set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set</h5>
 
-<div class="highlight highlight-source-clojure"><pre>#{}
-#{ <span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span> <span class="pl-c1">4</span> <span class="pl-c1">5</span> }</pre></div>
+<pre><code class="language-klipse">#{}
+#{ 1 2 3 4 5 }
+</code></pre>
 
 <p>A Clojure set is a standard hashset with the following properties:</p>
 
@@ -193,9 +196,9 @@ heterogeneous, meaning the contents of the collection can be of any type.</p>
 
 <ul>
 <li>
-<a href="http://clojure.org/reference/evaluation">Clojure Evaluation</a>: 
+<a href="http://clojure.org/reference/evaluation">Clojure Evaluation</a>:
 This is an excellent read on the basic types and literal collections of Clojure.
-It also discusses symbols, functions, macros, and other topics not covered in this 
+It also discusses symbols, functions, macros, and other topics not covered in this
 tutorial.</li>
 </ul>
 
@@ -217,7 +220,16 @@ your option) any later version.</p>
       </footer>
     </div>
 
-    
+    <pre><code class="language-klipse">(map inc [1 2 3])
+    </code></pre>
 
   </body>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/codemirror.css">
+
+  <script>
+      window.klipse_settings = {
+          selector: '.language-klipse'// css selector for the html elements you want to klipsify
+      };
+  </script>
+  <script src="./javascripts/klipse_plugin.js"></script>
 </html>
