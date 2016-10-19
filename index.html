@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Clojure-intro : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Clojure-intro</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/markbastian/clojure-intro">View on GitHub</a>
+
+          <h1 id="project_title">Clojure-intro</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/markbastian/clojure-intro/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/markbastian/clojure-intro/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="tutorial-1-clojure-is-a-data-centric-language" class="anchor" href="#tutorial-1-clojure-is-a-data-centric-language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial 1: Clojure is a Data Centric Language</h1>
+
+<p>There are a lot of ways to look at the Clojure language. Some of the points often made
+about it are that it is:</p>
+
+<ul>
+<li>Hosted
+
+<ul>
+<li>On the JVM as Clojure</li>
+<li>On JavaScript runtimes as ClojureScript</li>
+<li>On the CLR as .cljr files.</li>
+</ul>
+</li>
+<li>Functional as opposed to Object-Oriented</li>
+<li>A Lisp</li>
+<li>Fun. Clojure developers are the <a href="http://www.itworld.com/article/2693998/big-data/clojure-developers-are-the-happiest-developers.html">happiest</a>
+</li>
+<li>Data Oriented</li>
+</ul>
+
+<p>In this series, I am going to take the data-oriented/data-first approach to Clojure. 
+I think this is a less common approach, but has some major selling points:</p>
+
+<ul>
+<li>Provides an easy introduction to what is often considered a hard language</li>
+<li>Provides a fast path to productivity, especially if the task is data-centric</li>
+<li>Helps developers understand idioms for creating Clojure programs</li>
+</ul>
+
+<p>For this tutorial, there will be no code in the traditional sense. We will only be
+looking at Clojure as data. Let's jump in...</p>
+
+<h2>
+<a id="clojure-is-data" class="anchor" href="#clojure-is-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clojure is data</h2>
+
+<p>Clojure's basic collections have a <em>literal syntax</em>. In other words, Clojure is written
+exactly as it is evaluated. In most languages, primitives are evaluated literally.
+For example, 5 is interpreted by the compiler as the number 5 and "ABC" is interpreted 
+as the string "ABC". Generally, once you go beyond primitives this is no longer the case.</p>
+
+<h3>
+<a id="basic-types" class="anchor" href="#basic-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Types</h3>
+
+<p>The following basic primitives are present in Clojure:</p>
+
+<ul>
+<li>Strings</li>
+<li>Numbers
+
+<ul>
+<li>Double</li>
+<li>Long</li>
+<li>Ratio (Clojure only): 22/7</li>
+</ul>
+</li>
+<li>Characters: Note that in ClojureScript there are no characters. Instead, strings are
+converted to sequences of strings of length 1.</li>
+<li>Booleans</li>
+<li>nil</li>
+</ul>
+
+<h3>
+<a id="collections-are-literal-data" class="anchor" href="#collections-are-literal-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collections are Literal Data</h3>
+
+<p>In addition to the above primitives the following data structures are also treated literally.</p>
+
+<h5>
+<a id="vector" class="anchor" href="#vector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vector</h5>
+
+<div class="highlight highlight-source-clojure"><pre>[] <span class="pl-c">;An empty vector</span>
+[<span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span> <span class="pl-c1">4</span> <span class="pl-c1">5</span> <span class="pl-c1">6</span>]</pre></div>
+
+<p>A Clojure vector is an array-like object with the following properties:</p>
+
+<ul>
+<li>Fast lookup by index</li>
+<li>Efficient tail addition and removal</li>
+</ul>
+
+<h5>
+<a id="map" class="anchor" href="#map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Map</h5>
+
+<div class="highlight highlight-source-clojure"><pre>{}
+{ <span class="pl-c1">:name</span> <span class="pl-s"><span class="pl-pds">"</span>Mark<span class="pl-pds">"</span></span> <span class="pl-c1">:year</span> <span class="pl-c1">2016</span> }</pre></div>
+
+<p>A Clojure map is a hash map with the following properties:</p>
+
+<ul>
+<li>Efficient insertion and removal</li>
+</ul>
+
+<h5>
+<a id="set" class="anchor" href="#set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set</h5>
+
+<div class="highlight highlight-source-clojure"><pre>#{}
+#{ <span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span> <span class="pl-c1">4</span> <span class="pl-c1">5</span> }</pre></div>
+
+<p>A Clojure set is a standard hashset with the following properties:</p>
+
+<ul>
+<li>Fast indexing</li>
+<li>Efficient tail addition and removal</li>
+</ul>
+
+<h5>
+<a id="list" class="anchor" href="#list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List</h5>
+
+<div class="highlight highlight-source-clojure"><pre>()
+'(<span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span> <span class="pl-c1">4</span> <span class="pl-c1">5</span>)</pre></div>
+
+<p>A Clojure list has the following properties:</p>
+
+<ul>
+<li>Efficient head addition and removal</li>
+</ul>
+
+<h5>
+<a id="compared-with-other-languages" class="anchor" href="#compared-with-other-languages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compared with other languages</h5>
+
+<p>Contrast this with the following examples of how data beyond primitives are represented
+ in Java. In the vast majority of languages, data structures are represented by classes
+ or by non-literal data structures.</p>
+
+<p>A class representation.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">class</span> <span class="pl-en">Vector</span> {
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">double</span> x;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">double</span> y;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">double</span> z;
+}</pre></div>
+
+<p>A collection.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">List&lt;<span class="pl-smi">Integer</span>&gt;</span> list <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;&gt;</span>();</pre></div>
+
+<h4>
+<a id="clojure-collections-are-heterogeneous" class="anchor" href="#clojure-collections-are-heterogeneous" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clojure Collections are Heterogeneous</h4>
+
+<p>In addition to being represented literally, data structures in Clojure are nested and
+heterogeneous, meaning the contents of the collection can be of any type.</p>
+
+<div class="highlight highlight-source-clojure"><pre><span class="pl-c">;Let's model a ???</span>
+{ <span class="pl-c1">:name</span> <span class="pl-s"><span class="pl-pds">"</span>Mark Bastian<span class="pl-pds">"</span></span>
+  <span class="pl-c1">:address</span> { }
+}</pre></div>
+
+<h2>
+<a id="exercise-1-model-a-problem-as-data" class="anchor" href="#exercise-1-model-a-problem-as-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 1: Model a problem as data</h2>
+
+<p>Think of a problem you are interested in. If you can't think of one, try the following:</p>
+
+<div class="highlight highlight-source-clojure"><pre></pre></div>
+
+<p><a href="functions.md">functions</a></p>
+
+<h2>
+<a id="additional-resources" class="anchor" href="#additional-resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional Resources</h2>
+
+<ul>
+<li>
+<a href="http://clojure.org/reference/evaluation">Clojure Evaluation</a>: 
+This is an excellent read on the basic types and literal collections of Clojure.
+It also discusses symbols, functions, macros, and other topics not covered in this 
+tutorial.</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright © 2016 Mark Bastian</p>
+
+<p>Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Clojure-intro maintained by <a href="https://github.com/markbastian">markbastian</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
