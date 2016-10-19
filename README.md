@@ -1,14 +1,3 @@
-Note: Check out [klipse](https://github.com/viebel/klipse)
-
-<link rel="stylesheet" type="text/css" href="./resources/css/codemirror.css">
-
-<script>
-    window.klipse_settings = {
-        selector: '.language-klipse'// css selector for the html elements you want to klipsify
-    };
-</script>
-<script src="./resources/js/klipse_plugin.js"></script>
-
 # Tutorial 1: Clojure is a Data Centric Language
 There are a lot of ways to look at the Clojure language. Some of the points often made
 about it are that it is:
@@ -20,9 +9,6 @@ about it are that it is:
 * A Lisp
 * Fun. Clojure developers are the [happiest](http://www.itworld.com/article/2693998/big-data/clojure-developers-are-the-happiest-developers.html)
 * Data Oriented
-
-<pre><code class="language-klipse">(map inc [1 2 3])
-</code></pre>
 
 In this series, I am going to take the data-oriented/data-first approach to Clojure. 
 I think this is a less common approach, but has some major selling points:
