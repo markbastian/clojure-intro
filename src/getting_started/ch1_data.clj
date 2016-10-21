@@ -1,7 +1,5 @@
 (ns getting-started.ch1-data)
 
-
-
 ;Vectors are like arrays
 []
 [1 2 3 4 5 6]

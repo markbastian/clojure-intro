@@ -1,4 +1,7 @@
 # Tutorial 1: Clojure is a Data Centric Language
+
+----
+
 There are a lot of ways to look at the Clojure language. Some of the points often made
 about it are that it is:
 * Hosted
@@ -9,6 +12,8 @@ about it are that it is:
 * A Lisp
 * Fun. Clojure developers are the [happiest](http://www.itworld.com/article/2693998/big-data/clojure-developers-are-the-happiest-developers.html)
 * Data Oriented
+
+----
 
 In this series, I am going to take the data-oriented/data-first approach to Clojure. 
 I think this is a less common approach, but has some major selling points:
