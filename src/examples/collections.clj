@@ -1,4 +1,4 @@
-(ns getting-started.ch1-data)
+(ns examples.collections)
 
 ;Vectors are like arrays
 []

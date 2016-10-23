@@ -1,4 +1,4 @@
-(ns getting-started.core
+(ns examples.election-data
   (:require [dk.ative.docjure.spreadsheet :as xl]))
 
 (def popular-vote
@@ -44,4 +44,5 @@
     (* 100 (/ diff (+ dem-popular gop-popular)))))
 
 (sort-by pct-diff state-vote)
+
 
