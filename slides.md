@@ -455,7 +455,7 @@ Compose functions right to left, as in mathematics
 ##Collections are Functions
 * Vectors are functions of their indices
 * Maps are functions of their keys
-* Sets are collections of their contents
+* Sets are functions of their contents
 
 ```clojure
 ([1 "ABC" 3.14 42] 1)
