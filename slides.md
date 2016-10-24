@@ -635,9 +635,21 @@ Values can be "threaded" through forms
 
 ---
 
-##Example Walkthrough:
+##Case Studies
+* Identifying Names in Text
+* Analyzing Election Data
+
+---
+
+##Case Study:
 ##Identifying names in text
 Open `examples.gutenberg.clj`
+
+---
+
+##Case Study:
+##Analyzing Election Data
+Open `examples.election_data.clj`
 
 ---
 
