@@ -244,6 +244,8 @@ Clojure is a very simple language, following these rules:
 3. Vectors, sets, and maps yield vectors, sets, and maps whose contents are evaluated
 4. Lists are *calls* to a function, special form, or macro
 
+This is the other 1/2 of the language
+
 ----
 
 #Functions
@@ -321,7 +323,7 @@ What if this expression followed the standard rules of evaluation?
   (cheap-calculation) 
   (really-expensive-calculation-followed-by-world-war-3))
 ```
-* Normally all collection contents are evaluated
+* Normally all inner forms are evaluated
 * `if` only evaluates one branch
 * Special forms are otherwise like regular functions
 
@@ -392,8 +394,8 @@ Java
 
 ----
 
-#Clojure Summary
-###Clojure is data
+##Clojure in 1 slide
+###Clojure is data...
 ```clojure
 (def all-the-data
   { :string "This is a string"
@@ -402,7 +404,7 @@ Java
     :booleans #{ true false }
     :nil nil})
 ```
-###That can be evaluated
+###...That can be evaluated
 * Resolve the symbols
 * Lists are calls to special forms, macros, or functions
 * Evaluate everything else
@@ -427,7 +429,7 @@ return values from other functions
 
 #Partial
 * Partially apply a function of arity n
-* If m arguments are applied in, the resulting function has (- n m) arguments
+* If m arguments are applied, the resulting function has (- n m) arguments
 
 ```clojure
 (defn add[a b](+ a b))
@@ -572,13 +574,13 @@ Open *examples/rpg.clj* to find the following data structure:
   [{:name "Gandalf"
     :race :human
     :class :magic-user
-    :HP 24
-    :attributes {:STR 15 :CON 12 :DEX 17 :INT 9 :WIS 12 :CHA 4}}
+    :HP 100
+    :attributes {:STR 13 :CON 13 :DEX 17 :INT 18 :WIS 18 :CHA 16}}
    {:name "Frodo"
     :race :halfling
     :class :thief
     :HP 24
-    :attributes {:STR 15 :CON 12 :DEX 17 :INT 9 :WIS 12 :CHA 4}}
+    :attributes {:STR 9 :CON 12 :DEX 17 :INT 16 :WIS 12 :CHA 16}}
     ...
 ```
 Then, work through the following exercises.
