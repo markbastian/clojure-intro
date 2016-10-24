@@ -14,8 +14,8 @@
         (actionPerformed [_ _]
           (->> this-comp .getText Double/parseDouble f str (.setText that-comp)))))))
 
-(def temp-app
-  (let [state (atom {:celcius 100.0})
+(defn temp-app [initial-temp-celcius]
+  (let [state (atom {:celcius initial-temp-celcius})
         f (JFormattedTextField. (-> @state :celcius c->f str))
         c (JFormattedTextField. (-> @state :celcius str))]
     (doto (JFrame.)
@@ -30,3 +30,5 @@
                       (.add (JLabel. "C"))))) BorderLayout/CENTER)
       (.setDefaultCloseOperation JFrame/DISPOSE_ON_CLOSE)
       (.setVisible true))))
+
+;(temp-app 100.0)
