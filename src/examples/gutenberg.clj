@@ -23,12 +23,6 @@
   (->> normalized
        (filter (top-words 500))))
 
-#_(->> normalized
-       frequencies
-       (sort-by second #(compare %2 %1))
-       (filter (comp (top-words 1000) first))
-       (take 50))
-
 (def two-words
   (->> filtered-normalized
        (partition 2 1)
@@ -38,3 +32,24 @@
      frequencies
      (sort-by second #(compare %2 %1))
      (take 150))
+
+(defn normalize [text]
+  (-> text
+      (s/replace #"\W+" "|")
+      (s/split #"\|")
+      (->> (map s/upper-case))))
+
+(defn name-finder [url]
+  (->> url
+       slurp
+       normalize
+       (filter (top-words 1500))
+       (partition 2 1)
+       (map (partial s/join " "))
+       frequencies
+       (sort-by second #(compare %2 %1))
+       (take 150)))
+
+(name-finder "https://www.gutenberg.org/files/1342/1342-0.txt")
+(name-finder "http://www.gutenberg.org/cache/epub/84/pg84.txt")
+(name-finder "https://www.gutenberg.org/files/11/11-0.txt")

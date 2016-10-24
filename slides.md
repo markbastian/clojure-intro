@@ -247,7 +247,7 @@ Clojure is a very simple language, following these rules:
 ----
 
 #Functions
-Functions are generally defined by a list containing:
+Functions are generally defined by a **list** containing:
   * defn: A macro joining the def and fn special forms
   * A symbol naming the function
   * A vector of arguments
@@ -329,14 +329,14 @@ What if this expression followed the standard rules of evaluation?
 
 #Macros
 * Functions evaluate their contents
-* Macros take unevaluated forms, process them, then evaluate them
+* Macros take unevaluated forms, process them, then return the result for evaluation
 * This allows developers to extend the language as desired
 * This is what makes Clojure homoiconic
 
 ----
 
 ###Macros: Motivational Example
-Are these statements identical with the exception of their language:
+Q: Are these statements identical?
 
 Clojure
 ```clojure
@@ -347,6 +347,7 @@ Java
 ```java
 1 + 2;
 ```
+<p class="fragment">A: No, because the Clojure form is unevaluated.</p>
 
 ----
 
@@ -411,10 +412,98 @@ Java
 
 #Functional Sorcery
 
-#Higher order functions
-* Functions that take or return functions
-* `(map inc [1 2 3 4 5])`
-* `(comp inc inc)`
+----
+
+#First Class & Higher order functions
+* First class: functions are a type of the language
+* Higher order: functions can be arguments and/or 
+return values from other functions
+* Can you think of a higher order function from mathematics?
+  * <p class="fragment">Derivative</p>
+  * <p class="fragment">Integral</p>
+  * <p class="fragment">Differential Equation</p>
+
+----
+
+#Partial
+* Partially apply a function of arity n
+* If m arguments are applied in, the resulting function has (- n m) arguments
+
+```clojure
+(defn add[a b](+ a b))
+(def add-3 (partial add 3))
+(add-3 7)
+=> 10
+```
+
+----
+
+#Composition
+Compose functions right to left, as in mathematics
+
+```clojure
+(def x (comp dec count str inc))
+;What do these do?
+(x 1)
+(x 1000)
+```
+
+----
+
+##Collections are Functions
+* Vectors are functions of their indices
+* Maps are functions of their keys
+* Sets are collections of their contents
+
+```clojure
+([1 "ABC" 3.14 42] 1)
+({:one 1 :str "ABC" :pi 3.14 :the-answer 42} :pi)
+(#{1 "ABC" 3.14 42} "ABC")
+```
+
+----
+
+#Keywords are Functions
+* Keywords as fields is common
+* Makes data modeling easy
+
+```clojure
+(:pi {:one 1 :str "ABC" :pi 3.14 :the-answer 42})
+```
+
+----
+
+#And More...
+* There are many other functions for creating functions
+* `identity`, `repeatedly`, `complement`, `juxt`, ...
+
+---
+
+#Collections & [The Sequence Abstraction](http://clojure.org/reference/sequences)
+
+----
+
+##Collections
+Collections have a uniform interface for 
+deep access, modification, and update
+
+```clojure
+(get [1 2 3 4] 3)
+=> 4
+(get #{"ABC" 4} 4)
+=> 4
+(get-in {:a 1 :b {:c [1 2 3 4]}} [:b :c 0])
+=> 1
+;Associative collections
+(assoc [1 2 3 4] 1 5)
+=> [1 5 3 4]
+(assoc-in {:a 1 :b {:c 4}} [:b :c] {:4 4})
+=> {:a 1, :b {:c {:4 4}}}
+(update [1 2 3 4] 1 inc)
+=> [1 3 3 4]
+(update-in {:a 1 :b {:c 4}} [:b :c] #(* % %))
+=> {:a 1, :b {:c 16}}
+```
 
 ----
 
@@ -425,15 +514,22 @@ than 10 functions on 10 data structures."
 
 ----
 
-#The Sequence Abstraction
-* Nearly every 
+##The Sequence Abstraction
+* Clojure collections provide access to their elements as sequences
+* `seq`: An abstraction over sequences in Clojure
+* There are a **huge** number of functions that operate on seqs, and thus, all collections
+* A few: `map`, `reduce`, `filter`, `first`, `rest`, `reverse`, 
+`count`, `distinct`, `partition`, `flatten`, `sort`, `filter`, 
+`frequencies`, and many, many more
+* Let's look at some of the most common
 
 ----
 
 #Map
 * Apply a function to all members of a collection
 * If n collections are provided, the function takes n arguments
-and is appliet to each collection simultaneously
+and is applied to each collection simultaneously
+
 ```clojure
 (map inc [1 2 3 4 5])
 => (2 3 4 5 6)
@@ -450,6 +546,7 @@ and is appliet to each collection simultaneously
 to each member of a collection
 * A "seed" value can be provided as a first argument
 to the first function application
+
 ```clojure
 (reduce + [1 2 3 4 5])
 => 15
@@ -490,17 +587,69 @@ Then, work through the following exercises.
 
 #Questions:
 * How many members of the party are there?
+  * <p class="fragment">`(count fellowship)`</p>
 * What are the names of each character?
+  * <p class="fragment">`(map :name fellowship)`</p>
 * What is the total number of HP in the group?
   * Hint: Combine map and reduce
-* Increase 
+  * <p class="fragment">`(reduce + (map :HP fellowship))`</p>
+* Increase all HP by 10
+  * <p class="fragment">`(map #(update % :HP + 10) fellowship)`</p>
+
+----
+
+#Bonus Question
+What is the distribution of the classes of the halflings?
+* Hint `frequencies`
+
+<pre>
+<code class="fragment">(frequencies
+  (map
+  :class
+  (filter 
+    (comp #{:halfling} :race) 
+    fellowship)))
+</code>
+</pre>
+
+----
+
+#Threading Macros
+Values can be "threaded" through forms
+* Each value is fed into the next form
+* The computed value is likewise fed forward
+* `->`, `->>` are most common (Thread first and last, respectively)
+* cond, some, and as variants also exist (e.g. `some->>`)
+* `->>` is often used to make pipelines
+
+```clojure
+(->> fellowship
+     (filter (comp #{:halfling} :race))
+     (map :class)
+     frequencies)
+```
+
+<p class="fragment">Look Ma, less parens!</p>
+
+---
+
+##Example Walkthrough:
+##Identifying names in text
+Open `examples.gutenberg.clj`
+
+---
+
+#Topics not covered
+* Java interop
+* State (atoms, agents, refs)
+* JavaScript
 
 ---
 
 #THE END
 Questions?
 
-----
+---
 
 ## Additional Resources
  * [Clojure Evaluation](http://clojure.org/reference/evaluation): 
