@@ -604,8 +604,8 @@ Then, work through the following exercises.
 What is the distribution of the classes of the halflings?
 * Hint `frequencies`
 
-<pre>
-<code class="fragment">(frequencies
+<pre class="fragment">
+<code>(frequencies
   (map
   :class
   (filter 
@@ -638,6 +638,251 @@ Values can be "threaded" through forms
 ##Example Walkthrough:
 ##Identifying names in text
 Open `examples.gutenberg.clj`
+```clojure
+(ns examples.gutenberg
+  (:require [clojure.string :as s]))
+```
+
+----
+
+##Challenge
+* Can we extract proper nouns from text?
+* Can we identify a work from these proper nouns?
+
+----
+
+##Source & Normalize Data
+```clojure
+(defonce pride-and-prejudice
+         (slurp "https://www.gutenberg.org/files/1342/1342-0.txt"))
+
+(defonce normalized
+         (-> pride-and-prejudice
+             (s/replace #"\W+" "|")
+             (s/split #"\|")
+             (->> (map s/upper-case))))
+```
+
+----
+
+##REPL'ing Around (1)
+```clojure
+(->> normalized
+     frequencies
+     (sort-by second #(compare %2 %1))
+     (map first)
+     (take 20))
+```
+* `("THE" "TO" "OF" "AND" "HER" ...)`
+* The most frequent words
+* Mostly conjunctions, articles, pronouns, etc.
+
+----
+
+##REPL'ing Around (2)
+```clojure
+(->> normalized
+     (partition 2 1)
+     (map (partial s/join " "))
+     frequencies
+     (sort-by second #(compare %2 %1))
+     (map first)
+     (take 20))
+```
+* `("OF THE" "TO BE" "IN THE" "I AM" "MR DARCY" ...)`
+* The most frequent two word pairs
+* Mostly conjunctions, articles, pronouns, etc.
+* We found a name!
+* What if we removed the "junk words?"
+
+----
+
+##Common words filter
+```clojure
+(defonce common-words
+         (->> "https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt"
+              slurp
+              s/split-lines
+              (map s/upper-case)))
+
+(defn top-words [n]
+  (complement (into #{} (take n common-words))))
+```
+
+----
+
+##Frequent Word Pairs
+```clojure
+(def filtered-normalized
+  (->> normalized
+       (filter (top-words 500))))
+
+(def word-pairs
+  (->> filtered-normalized
+       (partition 2 1)
+       (map (partial s/join " "))))
+
+(->> word-pairs
+     frequencies
+     (sort-by second #(compare %2 %1))
+     (take 10))
+```
+<pre class="fragment">
+<code>(["MR DARCY" 272]
+ ["MRS BENNET" 153]
+ ["MR COLLINS" 150]
+ ["LADY CATHERINE" 116]
+ ["MR BINGLEY" 115]
+ ["MR BENNET" 89]
+ ["MISS BINGLEY" 87]
+ ["MR WICKHAM" 73]
+ ["MISS BENNET" 65]
+ ["MRS GARDINER" 58])
+</code>
+</pre>
+
+----
+
+##Bring it all together
+```clojure
+(defn normalize [text]
+  (-> text
+      (s/replace #"\W+" "|")
+      (s/split #"\|")
+      (->> (map s/upper-case))))
+
+(defn name-finder [url & {:keys [filter-top] :or {filter-top 1500}}]
+  (->> url
+       slurp
+       normalize
+       ;Defined previously
+       (filter (top-words filter-top))
+       (partition 2 1)
+       (map (partial s/join " "))
+       frequencies
+       (sort-by second #(compare %2 %1))))
+```
+
+----
+
+##Pride & Prejudice
+```clojure
+(take 20
+      (name-finder
+        "https://www.gutenberg.org/files/1342/1342-0.txt"
+        :filter-top 200))
+```
+<pre class="fragment">
+<code>(["MR DARCY" 272]
+ ["MRS BENNET" 153]
+ ["MR COLLINS" 150]
+ ["LADY CATHERINE" 116]
+ ["MR BINGLEY" 115]
+ ["MR BENNET" 89]
+ ["PROJECT GUTENBERG" 87]
+ ["MISS BINGLEY" 87]
+ ["MR WICKHAM" 73]
+ ["MISS BENNET" 65]
+ ["MRS GARDINER" 58]
+ ["GUTENBERG TM" 57]
+ ["SIR WILLIAM" 44]
+ ["MISS DARCY" 39]
+ ["YOUNG MAN" 38]
+ ["TOO MUCH" 37]
+ ["MR GARDINER" 33]
+ ["DARE SAY" 31]
+ ["COLONEL FITZWILLIAM" 30]
+ ["MRS COLLINS" 29])
+</code>
+</pre>
+
+----
+
+#What is this?
+<p class="fragment">Alice’s Adventures in Wonderland</p>
+```clojure
+(["PROJECT GUTENBERG" 87]
+ ["GUTENBERG TM" 57]
+ ["MOCK TURTLE" 56]
+ ["MARCH HARE" 31]
+ ["THOUGHT ALICE" 27]
+ ["WHITE RABBIT" 22]
+ ["TM ELECTRONIC" 18]
+ ["ELECTRONIC WORKS" 17]
+ ["ALICE THOUGHT" 14]
+ ["GUTENBERG LITERARY" 13]
+ ["LITERARY ARCHIVE" 13]
+ ["ARCHIVE FOUNDATION" 13]
+ ["POOR ALICE" 11]
+ ["ALICE COULD" 11]
+ ["ALICE DID" 11]
+ ["DON KNOW" 10]
+ ["OFF HEAD" 10]
+ ["UNITED STATES" 10]
+ ["1 F" 10]
+ ["ALICE HERSELF" 10])
+```
+
+----
+
+#What is this?
+<p class="fragment">Frankenstein; Or, The Modern Prometheus</p>
+```clojure
+(["PROJECT GUTENBERG" 87]
+ ["GUTENBERG TM" 57]
+ ["OLD MAN" 34]
+ ["TM ELECTRONIC" 18]
+ ["ELECTRONIC WORKS" 17]
+ ["NATIVE COUNTRY" 15]
+ ["NATURAL PHILOSOPHY" 14]
+ ["HUMAN BEING" 14]
+ ["TAKEN PLACE" 13]
+ ["GUTENBERG LITERARY" 13]
+ ["LITERARY ARCHIVE" 13]
+ ["MR KIRWIN" 13]
+ ["ARCHIVE FOUNDATION" 13]
+ ["FELLOW CREATURES" 12]
+ ["BEFORE EYES" 10]
+ ["DEAR VICTOR" 10]
+ ["LOOKED UPON" 10]
+ ["NOTHING COULD" 10]
+ ["UNITED STATES" 10]
+ ["1 F" 10])
+```
+
+----
+
+#What is this?
+<p class="fragment">A Tale of Two Cities</p>
+```clojure
+(["MR LORRY" 342]
+ ["MISS PROSS" 156]
+ ["MADAME DEFARGE" 122]
+ ["MR CRUNCHER" 101]
+ ["PROJECT GUTENBERG" 87]
+ ["DOCTOR MANETTE" 80]
+ ["GUTENBERG TM" 57]
+ ["MR STRYVER" 55]
+ ["CHARLES DARNAY" 54]
+ ["WINE SHOP" 52]
+ ["MISS MANETTE" 51]
+ ["SAINT ANTOINE" 50]
+ ["MENDER ROADS" 45]
+ ["YOUNG LADY" 36]
+ ["BEFORE HIM" 36]
+ ["SYDNEY CARTON" 35]
+ ["UPON HIM" 34]
+ ["MR DARNAY" 32]
+ ["MONSIEUR DEFARGE" 31]
+ ["MR CARTON" 29])
+```
+
+----
+
+##Observations
+* Clojure development is interactive
+* Work with the data until you've made your discoveries
+* Gather the useful parts into functions
 
 ---
 
