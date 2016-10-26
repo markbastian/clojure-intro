@@ -455,7 +455,7 @@ Compose functions right to left, as in mathematics
 ##Collections are Functions
 * Vectors are functions of their indices
 * Maps are functions of their keys
-* Sets are collections of their contents
+* Sets are functions of their contents
 
 ```clojure
 ([1 "ABC" 3.14 42] 1)
@@ -635,7 +635,13 @@ Values can be "threaded" through forms
 
 ---
 
-##Example Walkthrough:
+##Case Studies
+* Identifying Names in Text
+* Analyzing Election Data
+
+---
+
+##Case Study:
 ##Identifying names in text
 Open `examples.gutenberg.clj`
 ```clojure
@@ -883,6 +889,12 @@ Open `examples.gutenberg.clj`
 * Clojure development is interactive
 * Work with the data until you've made your discoveries
 * Gather the useful parts into functions
+
+---
+
+##Case Study:
+##Analyzing Election Data
+Open `examples.election_data.clj`
 
 ---
 
