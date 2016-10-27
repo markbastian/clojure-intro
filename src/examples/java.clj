@@ -1,18 +1,24 @@
 (ns examples.java
   (:import (javax.swing JFrame JLabel Box JFormattedTextField)
            (java.awt BorderLayout Component)
-           (java.awt.event ActionListener)))
+           (java.awt.event ActionListener FocusListener)))
 
 
 (defn c->f [c](-> c (* 9) (/ 5) (+ 32)))
 (defn f->c [f](-> f (- 32) (* 5) (/ 9)))
 
+(defn sync-components [this-comp that-comp f]
+  (->> this-comp .getText Double/parseDouble f str (.setText that-comp)))
+
 (defn action [this-comp that-comp f]
   (doto this-comp
+    (.addFocusListener
+      (reify FocusListener
+        (focusGained [_ _])
+        (focusLost [_ _] (sync-components this-comp that-comp f))))
     (.addActionListener
       (reify ActionListener
-        (actionPerformed [_ _]
-          (->> this-comp .getText Double/parseDouble f str (.setText that-comp)))))))
+        (actionPerformed [_ _] (sync-components this-comp that-comp f))))))
 
 (defn temp-app [initial-temp-celcius]
   (let [state (atom {:celcius initial-temp-celcius})

@@ -895,11 +895,138 @@ Open `examples.gutenberg.clj`
 ##Case Study:
 ##Analyzing Election Data
 Open `examples.election_data.clj`
+```clojure
+(ns examples.election-data
+  (:require [dk.ative.docjure.spreadsheet :as xl]))
+```
+
+----
+
+##Load Popular Vote Data
+```clojure
+(def popular-vote
+  (->> (xl/load-workbook "2012pres.xls")
+       (xl/select-sheet "Table 1. 2012 Pres Popular Vote")
+       (xl/select-columns {:A :candidate-party
+                           :B :votes
+                           :C :votes-by-percent})
+       (filter (fn [{:keys [votes votes-by-percent]}]
+                 (every? number? [votes votes-by-percent])))
+       (map #(update % :votes-by-percent * 100))
+       (filter #(> (:votes-by-percent %) 0.5))))
+```
+* Keep only those with > 0.5% of the vote
+* Who's left (2012)?
+
+<pre class="fragment">
+<code>({:candidate-party "Barack Obama (Democrat)", 
+  :votes 6.5915795E7, :votes-by-percent 51.06370658000776}
+ {:candidate-party "Mitt Romney (Republican)", 
+  :votes 6.0933504E7, :votes-by-percent 47.20402096565367}
+ {:candidate-party "Gary Johnson (Libertarian, Independent)", 
+  :votes 1275971.0, :votes-by-percent 0.9884703468811851})
+</code>
+</pre>
+
+----
+
+##Load state data
+```clojure
+(def state-vote
+  (->> (xl/load-workbook "2012pres.xls")
+       (xl/select-sheet "Table 2. Electoral &  Pop Vote")
+       (xl/select-columns {:A :state
+                           :B :dem-electors
+                           :C :gop-electors
+                           :D :dem-popular
+                           :E :gop-popular
+                           :F :other-popular
+                           :G :total-vote})
+       (drop 4)
+       (take 51)
+       ;Not shown - gap fill empty values with 0 
+       ; and perform casting
+       (map update-data)))
+```
+
+----
+
+##How were the electors split?
+```clojure
+(->> state-vote (map :dem-electors) (reduce +))
+(->> state-vote (map :gop-electors) (reduce +))
+```
+<pre class="fragment">
+<code>(->> state-vote (map :dem-electors) (reduce +))
+=> 332
+(->> state-vote (map :gop-electors) (reduce +))
+=> 206
+</code>
+</pre>
+
+----
+
+##N to change the outcome?
+```clojure
+;How many top battleground states would you need to 
+; flip to change the outcome?
+(->> state-vote
+     (sort-by pct-diff)
+     (filter (comp zero? :gop-electors))
+     (take 4)
+     (map :dem-electors)
+     (reduce + (->> state-vote (map :gop-electors) (reduce +))))
+```
+
+----
+
+##Which states to change the election outcome?
+```clojure
+;Which top battleground states would you need
+; to flip to change the election?
+;What was the per-state major party vote difference?
+(loop [votes (->> state-vote (map :gop-electors) (reduce +))
+       [{:keys [dem-electors] :as n} & r]
+       (->> state-vote
+            (sort-by pct-diff)
+            (filter (comp zero? :gop-electors)))
+       flipped []]
+  (if (< votes 270)
+    (recur (+ votes dem-electors) r (conj flipped n))
+    (into {} (map (fn [{:keys [state dem-popular gop-popular]}]
+                    {state (int (- dem-popular gop-popular))})
+                  flipped))))
+```
+<pre class="fragment">
+<code>{"FL" 74309, "OH" 166272, "VA" 149298, "PA" 309840}
+</code>
+</pre>
+
+----
+
+##Observations
+* Clojure eats data for breakfast
+* Clojure abstractions over data make data manipulation easy
+
+---
+
+#Java Interop
+
+----
+
+##Case Study:
+##Farenheit/Celcius Converter
+Open `examples.javaclj`
+```clojure
+(ns examples.java
+  (:import (javax.swing JFrame JLabel Box JFormattedTextField)
+           (java.awt BorderLayout Component)
+           (java.awt.event ActionListener FocusListener)))
+```
 
 ---
 
 #Topics not covered
-* Java interop
 * State (atoms, agents, refs)
 * JavaScript
 
