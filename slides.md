@@ -24,6 +24,21 @@
 
 ----
 
+#Comparison (Somewhat Opinionated)
+|                  |       Java      | Python |   Clojure  |
+|:----------------:|:---------------:|:------:|:----------:|
+|     Paradigm     | Object-Oriented |  Multi | Functional |
+|     Typing       |   Static        |Dynamic | Dynamic+Specs     |
+|    Deployable?   |        +        |    -   |      ++     |
+| Quick and Dirty? |        N        |    Y   |      Y     |
+| Interactive?     |        N        |    Y   |      Y     |
+| Hosted?          |        N        |    N   |      Y     |
+| Ecosystem        |        JVM     |Python  |      JVM, JS, +     |
+| Homoiconic?      |        N        |    N   |      Y     |
+| Data Analysis/ML Libraries   |        -        |    ++   |      +     |
+
+----
+
 #Who?
 * Amazon
 * eBay
