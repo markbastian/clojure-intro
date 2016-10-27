@@ -1,4 +1,13 @@
 #Introduction to Clojure
+##Mark Bastian
+
+```clojure
+#{ @mark_bastian
+   mbastian@clearwateranalytics.com
+   markbastian@gmail.com }
+```
+
+`git clone https://github.com/markbastian/clojure-intro.git`
 
 ---
 
@@ -21,21 +30,6 @@
 * Clojure has extremely powerful abstractions on data
 * Clojure is highly expressive
 * Clojure has a consistent track record of success
-
-----
-
-#Comparison (Somewhat Opinionated)
-|                  |       Java      | Python |   Clojure  |
-|:----------------:|:---------------:|:------:|:----------:|
-|     Paradigm     | Object-Oriented |  Multi | Functional |
-|     Typing       |   Static        |Dynamic | Dynamic+Specs     |
-|    Deployable?   |        +        |    -   |      ++     |
-| Quick and Dirty? |        N        |    Y   |      Y     |
-| Interactive?     |        N        |    Y   |      Y     |
-| Hosted?          |        N        |    N   |      Y     |
-| Ecosystem        |        JVM     |Python  |      JVM, JS, +     |
-| Homoiconic?      |        N        |    N   |      Y     |
-| Data Analysis/ML Libraries   |        -        |    ++   |      +     |
 
 ----
 
@@ -602,7 +596,7 @@ Then, work through the following exercises.
 
 ----
 
-#Questions:
+##Questions:
 * How many members of the party are there?
   * <p class="fragment">`(count fellowship)`</p>
 * What are the names of each character?
@@ -981,8 +975,23 @@ Open `examples.election_data.clj`
 
 ----
 
-##N to change the outcome?
+##Q: N to change the outcome?
 ```clojure
+(defn pct-diff [{:keys [dem-popular gop-popular]}]
+  (let [diff (Math/abs (- dem-popular gop-popular))]
+    (* 100 (/ diff (+ dem-popular gop-popular)))))
+    
+;How many top battleground states would you need to 
+; flip to change the outcome?
+(->> state-vote
+     (sort-by pct-diff)
+     ?)
+```
+
+----
+
+##A: N to change the outcome?
+```clojure    
 ;How many top battleground states would you need to 
 ; flip to change the outcome?
 (->> state-vote

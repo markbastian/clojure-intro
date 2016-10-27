@@ -1,4 +1,4 @@
-(ns examples.election-data
+(ns examples.elections-data-solutions
   (:require [dk.ative.docjure.spreadsheet :as xl]))
 
 (def popular-vote
@@ -38,16 +38,40 @@
        (map update-data)))
 
 ;How many electoral votes did each candidate get
+(->> state-vote (map :dem-electors) (reduce +))
+(->> state-vote (map :gop-electors) (reduce +))
 
 (defn pct-diff [{:keys [dem-popular gop-popular]}]
   (let [diff (Math/abs (- dem-popular gop-popular))]
     (* 100 (/ diff (+ dem-popular gop-popular)))))
 
-;5 closest races?
+;5 closest races
+(->> state-vote
+     (sort-by pct-diff)
+     (take 5))
 
 ;How many top battleground states would you need to
 ; flip to change the outcome?
+(->> state-vote
+     (sort-by pct-diff)
+     (filter (comp zero? :gop-electors))
+     (take 4)
+     (map :dem-electors)
+     (reduce + (->> state-vote (map :gop-electors) (reduce +))))
 
 ;Which top battleground states would you need
 ; to flip to change the election?
 ;What was the per-state major party vote difference?
+(loop [votes (->> state-vote (map :gop-electors) (reduce +))
+       [{:keys [dem-electors] :as n} & r]
+       (->> state-vote
+            (sort-by pct-diff)
+            (filter (comp zero? :gop-electors)))
+       flipped []]
+  (if (< votes 270)
+    (recur (+ votes dem-electors) r (conj flipped n))
+    (into {} (map (fn [{:keys [state dem-popular gop-popular]}]
+                    {state (int (- dem-popular gop-popular))})
+                  flipped))))
+
+
