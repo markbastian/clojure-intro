@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>partial</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<pre style="font-size:3em"><code class="klipse-cljs nohighlight">
+(defn add[a b](+ a b))
+(def add-3 (partial add 3))
+(add-3 7)
+</code></pre>
+
+<script>window.klipse_settings = {"selector": ".klipse-cljs"};</script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
+
+</body>
+</html>

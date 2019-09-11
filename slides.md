@@ -1,5 +1,5 @@
-# Introduction to Clojure
-## Mark Bastian
+## Introduction to Clojure
+### Mark Bastian
 
 ```clojure
 #{ @mark_bastian
@@ -11,11 +11,11 @@
 
 ---
 
-# Quick Intro
+## Quick Intro
 
 ----
 
-# About Clojure
+## About Clojure
 * Clojure is a Lisp dialect
 * It is hosted
   * Clojure targets the JVM
@@ -24,7 +24,7 @@
 
 ----
 
-# Why?
+## Why?
 * There is a resurgence in functional languages
 * Clojure is a full-stack, multipurpose language
 * Clojure has extremely powerful abstractions on data
@@ -33,7 +33,7 @@
 
 ----
 
-# Who?
+## Who?
 * Amazon
 * eBay
 * Puppet Labs
@@ -47,7 +47,7 @@
 
 ----
 
-# [Leiningen](http://leiningen.org/)
+## [Leiningen](http://leiningen.org/)
 * The most popular Clojure build tool
 * To get started, do the following:
   1. `lein new clojure-intro`
@@ -57,7 +57,7 @@
 
 ----
 
-# REPL Intro
+## REPL Intro
 Try the following:
 * `(prn "Hello World!")`
 * `(+ 0 1 2 3 4 5 6 7 8 9)`
@@ -68,7 +68,7 @@ Try the following:
 
 ----
 
-# REPL Help
+## REPL Help
 Try the following:
 * `(doc def)`
 * `(source map)`
@@ -76,7 +76,7 @@ Try the following:
 
 ----
 
-# IDEs
+## IDEs
 * Clojure has low IDE dependence, but...
 * Popular options
   * Cursive Clojure IntelliJ Plugin
@@ -87,7 +87,7 @@ Try the following:
 
 ----
 
-# Cursive Clojure
+## Cursive Clojure
 * Start IntelliJ IDEA
 * File > Open...
 * Navigate to the <font color="red">`clojure-intro`</font> folder
@@ -103,7 +103,7 @@ Try the following:
 
 ----
 
-# Launching a REPL
+## Launching a REPL
 * Right-click on the project folder
 * Select "Run 'REPL for clojure-intro'"
 * A REPL window will appear at right
@@ -117,7 +117,7 @@ Try the following:
 
 ----
 
-# Clojure as Data
+## Clojure as Data
 * Clojure is Homoiconic
   * This just means it is written in its own data structures
   * Code as data
@@ -126,7 +126,7 @@ Try the following:
 
 ----
 
-# Basic Types
+## Basic Types
 The following basic primitives are present in Clojure:
 * Strings: `"This is a string"`
 * Numbers
@@ -146,7 +146,7 @@ structures are also treated literally....
 
 ----
 
-# Vector
+## Vector
 ```clojure
 [] ;An empty vector
 [1 2 3 4 5 6]
@@ -158,7 +158,7 @@ A Clojure vector is an array-like object with the following properties:
 
 ----
 
-# Map
+## Map
 ```clojure
 {}
 { :name "Mark" :year 2016 }
@@ -171,7 +171,7 @@ A Clojure map is a hash map with the following properties:
 
 ----
 
-# Set
+## Set
 ```clojure
 #{}
 #{ 1 2 3 4 5 }
@@ -182,7 +182,7 @@ A Clojure set is a standard hashset with the following properties:
 
 ----
 
-# List
+## List
 ```clojure
 ()
 '(1 2 3 4 5)
@@ -195,7 +195,7 @@ A Clojure list has the following properties:
 
 ----
 
-# Summary
+## Summary
 ```clojure
 (def all-the-data
   { :string "This is a string"
@@ -207,7 +207,7 @@ A Clojure list has the following properties:
 
 ----
 
-# Exercise
+## Exercise
 Model this scenario using Clojure data structures:
 * RPG Character Stats
   * Name: String
@@ -218,7 +218,7 @@ Model this scenario using Clojure data structures:
 
 ----
 
-# A Solution
+## A Solution
 ```clojure
 {
   :name "Dirk the Daring"
@@ -237,7 +237,7 @@ Model this scenario using Clojure data structures:
 
 ----
 
-# Congratulations!
+## Congratulations!
 You've just learned 1/2 of the Clojure programming language.
 
 ---
@@ -246,7 +246,7 @@ You've just learned 1/2 of the Clojure programming language.
 
 ----
 
-# [Evaluation](https://clojure.org/reference/evaluation)
+## [Evaluation](https://clojure.org/reference/evaluation)
 Clojure is a very simple language, following these rules:
 1. Primitives evaluate to themselves
 2. Symbols are resolved
@@ -257,7 +257,7 @@ This is the other 1/2 of the language
 
 ----
 
-# Functions
+## Functions
 Functions are generally defined by a **list** containing:
   * defn: A macro joining the def and fn special forms
   * A symbol naming the function
@@ -293,12 +293,12 @@ Shorthand Lambda Syntax
 
 ----
 
-# Exercise
+## Exercise
 Write a function that computes the average of 3 numbers.
 
 ----
 
-# Solutions
+## Solutions
 ```clojure
 (defn avg[a b c]
   (/ (+ a b c) 3.0))
@@ -338,7 +338,7 @@ What if this expression followed the standard rules of evaluation?
 
 ----
 
-# Macros
+## Macros
 * Functions evaluate their contents
 * Macros take unevaluated forms, process them, then return the result for evaluation
 * This allows developers to extend the language as desired
@@ -369,7 +369,7 @@ Java
 
 ----
 
-# A Simple Macro
+## A Simple Macro
 ```clojure
 (defmacro bizarro [[f & r]]
   (case f
@@ -395,7 +395,7 @@ Java
 
 ----
 
-# Macros
+## Macros
 * Take unevaluated forms
 * Manipulate them
 * Return the manipulated form to be evaluated
@@ -439,28 +439,28 @@ return values from other functions
 
 ----
 
-# Partial
+## Partial
 * Partially apply a function of arity n
 * If m arguments are applied, the resulting function has (- n m) arguments
 
-```clojure
-(defn add[a b](+ a b))
-(def add-3 (partial add 3))
-(add-3 7)
-=> 10
-```
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/partial.html"/>
 
 ----
 
-# Composition
+## Composition
 Compose functions right to left, as in mathematics
 
-```clojure
-(def x (comp dec count str inc))
-;What do these do?
-(x 1)
-(x 1000)
-```
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/comp.html"/>
 
 ----
 
@@ -544,14 +544,12 @@ than 10 functions on 10 data structures."
 * If n collections are provided, the function takes n arguments
 and is applied to each collection simultaneously
 
-```clojure
-(map inc [1 2 3 4 5])
-=> (2 3 4 5 6)
-(map * [1 2 3][2 9 5])
-=> (2 18 15)
-(map #(%1 %2) [str inc dec](repeat 3))
-=> ("3" 4 2)
-```
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/map.html"/>
 
 ----
 
@@ -561,21 +559,23 @@ to each member of a collection
 * A "seed" value can be provided as a first argument
 to the first function application
 
-```clojure
-(reduce + [1 2 3 4 5])
-=> 15
-(reduce #(str %1 %2) "" [1 2 3 4 5])
-=> "12345"
-```
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/reduce.html"/>
 
 ----
 
-## Filter
-* Keep only elements passing a predicate
-```clojure
-(filter even? (range 10))
-=> (0 2 4 6 8)
-```
+## Filter/Remove
+* Keep/remove only elements passing a predicate
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/filter.html"/>
 
 ----
 
@@ -599,42 +599,65 @@ Then, work through the following exercises.
 
 ----
 
-## Questions:
-* How many members of the party are there?
-  * <p class="fragment">`(count fellowship)`</p>
-* What are the names of each character?
-  * <p class="fragment">`(map :name fellowship)`</p>
-* What is the total number of HP in the group?
-  * Hint: Combine map and reduce
-  * <p class="fragment">`(reduce + (map :HP fellowship))`</p>
-* Increase all HP by 10
-  * <p class="fragment">`(map #(update % :HP + 10) fellowship)`</p>
+### Questions
+<small>
+<ul>
+<li>How many members of the party are there?</li>
+<li>What are the names of each character?</li>
+<li>What is the total number of HP in the group?</li>
+<ul>
+  <li>Hint: Combine map and reduce</li>
+  </ul>
+<li>Increase all HP by 10</li>
+</ul>
+</small>
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/rpg_exercises.html"/>
 
 ----
 
-# Bonus Question
+## Bonus Question
 What is the distribution of the classes of the halflings?
 * Hint `frequencies`
 
-<pre class="fragment">
-<code>(frequencies
+<iframe sandbox="allow-scripts" 
+ scrolling="no"
+style="border:none;" 
+width="100%" 
+height="300px" 
+src="./klipse_examples/halflings_bonus.html"/>
+
+----
+
+## Bonus Answer
+What is the distribution of the classes of the halflings?
+
+```clojure
+(frequencies
   (map
   :class
   (filter 
     (comp #{:halfling} :race) 
     fellowship)))
-</code>
-</pre>
+```
 
 ----
 
 ### Threading Macros
 Values can be "threaded" through forms
-* Each value is fed into the next form
-* The computed value is likewise fed forward
-* `->`, `->>` are most common (Thread first and last, respectively)
-* cond, some, and as variants also exist (e.g. `some->>`)
-* `->>` is often used to make pipelines
+<small>
+<ul>
+<li>Each value is fed into the next form</li>
+<li>The computed value is likewise fed forward</li>
+<li>`->`, `->>` are most common (Thread first and last, respectively)</li>
+<li>cond, some, and as variants also exist (e.g. `some->>`)</li>
+<li>`->>` is often used to make pipelines</li>
+</ul>
+</small>
 
 ```clojure
 (->> fellowship
