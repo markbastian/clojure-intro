@@ -1,5 +1,5 @@
-#Introduction to Clojure
-##Mark Bastian
+# Introduction to Clojure
+## Mark Bastian
 
 ```clojure
 #{ @mark_bastian
@@ -11,11 +11,11 @@
 
 ---
 
-#Quick Intro
+# Quick Intro
 
 ----
 
-#About Clojure
+# About Clojure
 * Clojure is a Lisp dialect
 * It is hosted
   * Clojure targets the JVM
@@ -24,7 +24,7 @@
 
 ----
 
-#Why?
+# Why?
 * There is a resurgence in functional languages
 * Clojure is a full-stack, multipurpose language
 * Clojure has extremely powerful abstractions on data
@@ -33,7 +33,7 @@
 
 ----
 
-#Who?
+# Who?
 * Amazon
 * eBay
 * Puppet Labs
@@ -43,11 +43,11 @@
 
 ---
 
-#Getting Started
+# Getting Started
 
 ----
 
-#[Leiningen](http://leiningen.org/)
+# [Leiningen](http://leiningen.org/)
 * The most popular Clojure build tool
 * To get started, do the following:
   1. `lein new clojure-intro`
@@ -57,7 +57,7 @@
 
 ----
 
-#REPL Intro
+# REPL Intro
 Try the following:
 * `(prn "Hello World!")`
 * `(+ 0 1 2 3 4 5 6 7 8 9)`
@@ -68,7 +68,7 @@ Try the following:
 
 ----
 
-#REPL Help
+# REPL Help
 Try the following:
 * `(doc def)`
 * `(source map)`
@@ -76,7 +76,7 @@ Try the following:
 
 ----
 
-#IDEs
+# IDEs
 * Clojure has low IDE dependence, but...
 * Popular options
   * Cursive Clojure IntelliJ Plugin
@@ -87,7 +87,7 @@ Try the following:
 
 ----
 
-#Cursive Clojure
+# Cursive Clojure
 * Start IntelliJ IDEA
 * File > Open...
 * Navigate to the <font color="red">`clojure-intro`</font> folder
@@ -95,7 +95,7 @@ Try the following:
 
 ----
 
-##Navigating your project
+## Navigating your project
 * Select the *Project* vertical tab on the left side of the frame
 * If the above is not visible, click the box at bottom left and select *Project*
 * You can see a tree view representing your project
@@ -103,7 +103,7 @@ Try the following:
 
 ----
 
-#Launching a REPL
+# Launching a REPL
 * Right-click on the project folder
 * Select "Run 'REPL for clojure-intro'"
 * A REPL window will appear at right
@@ -113,11 +113,11 @@ Try the following:
 
 ---
 
-#Clojure is Data
+# Clojure is Data
 
 ----
 
-#Clojure as Data
+# Clojure as Data
 * Clojure is Homoiconic
   * This just means it is written in its own data structures
   * Code as data
@@ -195,7 +195,7 @@ A Clojure list has the following properties:
 
 ----
 
-#Summary
+# Summary
 ```clojure
 (def all-the-data
   { :string "This is a string"
@@ -207,7 +207,7 @@ A Clojure list has the following properties:
 
 ----
 
-#Exercise
+# Exercise
 Model this scenario using Clojure data structures:
 * RPG Character Stats
   * Name: String
@@ -218,7 +218,7 @@ Model this scenario using Clojure data structures:
 
 ----
 
-#A Solution
+# A Solution
 ```clojure
 {
   :name "Dirk the Daring"
@@ -237,16 +237,16 @@ Model this scenario using Clojure data structures:
 
 ----
 
-#Congratulations!
+# Congratulations!
 You've just learned 1/2 of the Clojure programming language.
 
 ---
 
-#Evaluation
+# Evaluation
 
 ----
 
-#[Evaluation](https://clojure.org/reference/evaluation)
+# [Evaluation](https://clojure.org/reference/evaluation)
 Clojure is a very simple language, following these rules:
 1. Primitives evaluate to themselves
 2. Symbols are resolved
@@ -257,7 +257,7 @@ This is the other 1/2 of the language
 
 ----
 
-#Functions
+# Functions
 Functions are generally defined by a **list** containing:
   * defn: A macro joining the def and fn special forms
   * A symbol naming the function
@@ -274,7 +274,7 @@ Functions are generally defined by a **list** containing:
 
 ----
 
-#Defining Functions
+## Defining Functions
 Explicit Functions
 ```clojure
 (defn add[a b](+ a b))
@@ -293,12 +293,12 @@ Shorthand Lambda Syntax
 
 ----
 
-#Exercise
+# Exercise
 Write a function that computes the average of 3 numbers.
 
 ----
 
-#Solutions
+# Solutions
 ```clojure
 (defn avg[a b c]
   (/ (+ a b c) 3.0))
@@ -315,7 +315,7 @@ Write a function that computes the average of 3 numbers.
 
 ----
 
-#[Special Forms](http://clojure.org/reference/special_forms)
+## [Special Forms](http://clojure.org/reference/special_forms)
 * Calls that do not follow the regular rules of evaluation
 * Required building blocks for the language
 * `(pprint (keys (. clojure.lang.Compiler specials)))`
@@ -325,7 +325,7 @@ quote, catch, throw, monitor-enter, def`
 
 ----
 
-#The if special form
+## The `if` special form
 What if this expression followed the standard rules of evaluation?
 ```clojure
 (if true 
@@ -338,15 +338,15 @@ What if this expression followed the standard rules of evaluation?
 
 ----
 
-#Macros
+# Macros
 * Functions evaluate their contents
 * Macros take unevaluated forms, process them, then return the result for evaluation
 * This allows developers to extend the language as desired
-* This is what makes Clojure homoiconic
+* This is the value of homoiconicity
 
 ----
 
-###Macros: Motivational Example
+### Macros: Motivational Example
 Q: Are these statements identical?
 
 Clojure
@@ -362,14 +362,14 @@ Java
 
 ----
 
-###Macros: Motivational Example
+### Macros: Motivational Example
 * Until evaluation, `(+ 1 2)` is a list containing a symbol and two values.
 * A macro can manipulate this form prior to evaluation.
 * This is what is meant as *homoiconicity* or "code as data."
 
 ----
 
-#A Simple Macro
+# A Simple Macro
 ```clojure
 (defmacro bizarro [[f & r]]
   (case f
@@ -381,7 +381,7 @@ Java
 
 ----
 
-#A Bizarre World of Macros
+## A Bizarre World of Macros
 ```clojure
 (+ 1 2)
 => 3
@@ -395,7 +395,7 @@ Java
 
 ----
 
-#Macros
+# Macros
 * Take unevaluated forms
 * Manipulate them
 * Return the manipulated form to be evaluated
@@ -403,8 +403,8 @@ Java
 
 ----
 
-##Clojure in 1 slide
-###Clojure is data...
+## Clojure in 1 slide
+#### Code is data...
 ```clojure
 (def all-the-data
   { :string "This is a string"
@@ -413,19 +413,22 @@ Java
     :booleans #{ true false }
     :nil nil})
 ```
-###...That can be evaluated
+#### ...That can be evaluated
 * Resolve the symbols
 * Lists are calls to special forms, macros, or functions
 * Evaluate everything else
-* (ᗧ • • •)
-
----
-
-#Functional Sorcery
 
 ----
 
-#First Class & Higher order functions
+# (ᗧ • • •)
+
+---
+
+# Functional Sorcery
+
+----
+
+### First Class & Higher order functions
 * First class: functions are a type of the language
 * Higher order: functions can be arguments and/or 
 return values from other functions
@@ -436,7 +439,7 @@ return values from other functions
 
 ----
 
-#Partial
+# Partial
 * Partially apply a function of arity n
 * If m arguments are applied, the resulting function has (- n m) arguments
 
@@ -449,7 +452,7 @@ return values from other functions
 
 ----
 
-#Composition
+# Composition
 Compose functions right to left, as in mathematics
 
 ```clojure
@@ -461,7 +464,7 @@ Compose functions right to left, as in mathematics
 
 ----
 
-##Collections are Functions
+## Collections are Functions
 * Vectors are functions of their indices
 * Maps are functions of their keys
 * Sets are functions of their contents
@@ -474,7 +477,7 @@ Compose functions right to left, as in mathematics
 
 ----
 
-#Keywords are Functions
+## Keywords are Functions
 * Keywords as fields is common
 * Makes data modeling easy
 
@@ -484,17 +487,17 @@ Compose functions right to left, as in mathematics
 
 ----
 
-#And More...
+## And More...
 * There are many other functions for creating functions
 * `identity`, `repeatedly`, `complement`, `juxt`, ...
 
 ---
 
-#Collections & [The Sequence Abstraction](http://clojure.org/reference/sequences)
+## Collections & [The Sequence Abstraction](http://clojure.org/reference/sequences)
 
 ----
 
-##Collections
+## Collections
 Collections have a uniform interface for 
 deep access, modification, and update
 
@@ -525,7 +528,7 @@ than 10 functions on 10 data structures."
 
 ----
 
-##The Sequence Abstraction
+## The Sequence Abstraction
 * Clojure collections provide access to their elements as sequences
 * `seq`: An abstraction over sequences in Clojure
 * There are a **huge** number of functions that operate on seqs, and thus, all collections
@@ -536,7 +539,7 @@ than 10 functions on 10 data structures."
 
 ----
 
-#Map
+## Map
 * Apply a function to all members of a collection
 * If n collections are provided, the function takes n arguments
 and is applied to each collection simultaneously
@@ -552,7 +555,7 @@ and is applied to each collection simultaneously
 
 ----
 
-#Reduce
+## Reduce
 * Computes a single value by applying a function pairwise
 to each member of a collection
 * A "seed" value can be provided as a first argument
@@ -567,7 +570,7 @@ to the first function application
 
 ----
 
-#Filter
+## Filter
 * Keep only elements passing a predicate
 ```clojure
 (filter even? (range 10))
@@ -576,7 +579,7 @@ to the first function application
 
 ----
 
-#Exercises
+## Exercises
 Open *examples/rpg.clj* to find the following data structure:
 ```clojure
 (def fellowship
@@ -596,7 +599,7 @@ Then, work through the following exercises.
 
 ----
 
-##Questions:
+## Questions:
 * How many members of the party are there?
   * <p class="fragment">`(count fellowship)`</p>
 * What are the names of each character?
@@ -609,7 +612,7 @@ Then, work through the following exercises.
 
 ----
 
-#Bonus Question
+# Bonus Question
 What is the distribution of the classes of the halflings?
 * Hint `frequencies`
 
@@ -625,7 +628,7 @@ What is the distribution of the classes of the halflings?
 
 ----
 
-#Threading Macros
+### Threading Macros
 Values can be "threaded" through forms
 * Each value is fed into the next form
 * The computed value is likewise fed forward
@@ -644,14 +647,14 @@ Values can be "threaded" through forms
 
 ---
 
-##Case Studies
+## Case Studies
 * Identifying Names in Text
 * Analyzing Election Data
 
 ---
 
-##Case Study:
-##Identifying names in text
+## Case Study:
+## Identifying names in text
 Open `examples.gutenberg.clj`
 ```clojure
 (ns examples.gutenberg
@@ -660,13 +663,13 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Challenge
+## Challenge
 * Can we extract proper nouns from text?
 * Can we identify a work from these proper nouns?
 
 ----
 
-##Source & Normalize Data
+## Source & Normalize Data
 ```clojure
 (defonce pride-and-prejudice
          (slurp "https://www.gutenberg.org/files/1342/1342-0.txt"))
@@ -680,7 +683,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##REPL'ing Around (1)
+## REPL'ing Around (1)
 ```clojure
 (->> normalized
      frequencies
@@ -694,7 +697,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##REPL'ing Around (2)
+## REPL'ing Around (2)
 ```clojure
 (->> normalized
      (partition 2 1)
@@ -712,7 +715,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Common words filter
+## Common words filter
 ```clojure
 (defonce common-words
          (->> "https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt"
@@ -726,7 +729,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Frequent Word Pairs
+## Frequent Word Pairs
 ```clojure
 (def filtered-normalized
   (->> normalized
@@ -758,7 +761,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Bring it all together
+### Bring it all together
 ```clojure
 (defn normalize [text]
   (-> text
@@ -780,7 +783,7 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Pride & Prejudice
+### Pride & Prejudice
 ```clojure
 (take 20
       (name-finder
@@ -813,8 +816,9 @@ Open `examples.gutenberg.clj`
 
 ----
 
-#What is this?
+### What is this?
 <p class="fragment">Alice’s Adventures in Wonderland</p>
+ 
 ```clojure
 (["PROJECT GUTENBERG" 87]
  ["GUTENBERG TM" 57]
@@ -840,8 +844,9 @@ Open `examples.gutenberg.clj`
 
 ----
 
-#What is this?
+### What is this?
 <p class="fragment">Frankenstein; Or, The Modern Prometheus</p>
+
 ```clojure
 (["PROJECT GUTENBERG" 87]
  ["GUTENBERG TM" 57]
@@ -867,8 +872,9 @@ Open `examples.gutenberg.clj`
 
 ----
 
-#What is this?
-<p class="fragment">A Tale of Two Cities</p>
+### What is this?
+ <p class="fragment">A Tale of Two Cities</p>
+
 ```clojure
 (["MR LORRY" 342]
  ["MISS PROSS" 156]
@@ -894,15 +900,15 @@ Open `examples.gutenberg.clj`
 
 ----
 
-##Observations
+## Observations
 * Clojure development is interactive
 * Work with the data until you've made your discoveries
 * Gather the useful parts into functions
 
 ---
 
-##Case Study:
-##Analyzing Election Data
+## Case Study:
+### Analyzing Election Data
 Open `examples.election_data.clj`
 ```clojure
 (ns examples.election-data
@@ -911,7 +917,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##Load Popular Vote Data
+### Load Popular Vote Data
 ```clojure
 (def popular-vote
   (->> (xl/load-workbook "2012pres.xls")
@@ -939,7 +945,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##Load state data
+## Load state data
 ```clojure
 (def state-vote
   (->> (xl/load-workbook "2012pres.xls")
@@ -960,7 +966,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##How were the electors split?
+## How were the electors split?
 ```clojure
 (->> state-vote (map :dem-electors) (reduce +))
 (->> state-vote (map :gop-electors) (reduce +))
@@ -975,7 +981,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##Q: N to change the outcome?
+## Q: N to change the outcome?
 ```clojure
 (defn pct-diff [{:keys [dem-popular gop-popular]}]
   (let [diff (Math/abs (- dem-popular gop-popular))]
@@ -990,7 +996,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##A: N to change the outcome?
+## A: N to change the outcome?
 ```clojure    
 ;How many top battleground states would you need to 
 ; flip to change the outcome?
@@ -1004,7 +1010,7 @@ Open `examples.election_data.clj`
 
 ----
 
-##Which states to change the election outcome?
+### Which states to change the election outcome?
 ```clojure
 ;Which top battleground states would you need
 ; to flip to change the election?
@@ -1028,18 +1034,18 @@ Open `examples.election_data.clj`
 
 ----
 
-##Observations
+## Observations
 * Clojure eats data for breakfast
 * Clojure abstractions over data make data manipulation easy
 
 ---
 
-#Java Interop
+## Java Interop
 
 ----
 
-##Case Study:
-##Farenheit/Celcius Converter
+## Case Study:
+### Farenheit/Celcius Converter
 Open `examples.javaclj`
 ```clojure
 (ns examples.java
@@ -1050,13 +1056,13 @@ Open `examples.javaclj`
 
 ---
 
-#Topics not covered
+## Topics not covered
 * State (atoms, agents, refs)
 * JavaScript
 
 ---
 
-#THE END
+## THE END
 Questions?
 
 ---
